@@ -1,12 +1,20 @@
 import 'reflect-metadata';
 import { Post } from '../entities/Post';
-import { Resolver, Query, Ctx } from 'type-graphql';
+import { Resolver, Query, Ctx, Arg, Mutation } from 'type-graphql';
 import { MyContext } from 'src/types';
 
 @Resolver()
 export class PostResolver {
     @Query(() => [Post])
-    post(@Ctx() { em }: MyContext): Promise<Post[]> {
+    posts(@Ctx() { em }: MyContext): Promise<Post[]> {
         return em.find(Post, {});
+    }
+
+    @Query(() => Post, { nullable: true })
+    post(
+        @Arg("_id") _id: number,
+        @Ctx() { em }: MyContext
+    ): Promise<Post | null> {
+        return em.findOne(Post, { _id });
     }
 }

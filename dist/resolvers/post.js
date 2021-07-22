@@ -17,8 +17,11 @@ require("reflect-metadata");
 const Post_1 = require("../entities/Post");
 const type_graphql_1 = require("type-graphql");
 let PostResolver = class PostResolver {
-    post({ em }) {
+    posts({ em }) {
         return em.find(Post_1.Post, {});
+    }
+    post(_id, { em }) {
+        return em.findOne(Post_1.Post, { _id });
     }
 };
 __decorate([
@@ -26,6 +29,14 @@ __decorate([
     __param(0, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PostResolver.prototype, "posts", null);
+__decorate([
+    type_graphql_1.Query(() => Post_1.Post, { nullable: true }),
+    __param(0, type_graphql_1.Arg("_id")),
+    __param(1, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Promise)
 ], PostResolver.prototype, "post", null);
 PostResolver = __decorate([

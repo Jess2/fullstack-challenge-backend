@@ -17,7 +17,7 @@ export class Post {
   @Property({ type: 'date', onUpdate: () => new Date() })
   updatedAt = new Date();
 
-  @Field()
+  @Field() // field 부분을 빼면 graphql에서 속성이 안보이도록 hide할 수 있다.
   @Property({ type: 'text' })
   title!: string;
 }
