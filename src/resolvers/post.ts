@@ -17,4 +17,14 @@ export class PostResolver {
     ): Promise<Post | null> {
         return em.findOne(Post, { _id });
     }
+
+    @Mutation(() => Post)
+    async createPost(
+        @Arg("title") title: string,
+        @Ctx() { em }: MyContext
+    ): Promise<Post> {
+        const post = em.create(Post, { title });
+        await em.persistAndFlush(post)
+        return post;
+    }
 }
