@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 const hello_1 = require("./resolvers/hello");
 const post_1 = require("./resolvers/post");
+const user_1 = require("./resolvers/user");
 const { MikroORM } = require('@mikro-orm/core');
 const { microConfig } = require('./mikro-orm.config');
 const express = require('express');
@@ -14,7 +15,7 @@ const main = async () => {
     const app = express();
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [hello_1.HelloResolver, post_1.PostResolver],
+            resolvers: [hello_1.HelloResolver, post_1.PostResolver, user_1.UserResolver],
             validate: false,
         }),
         context: () => ({ em: orm.em })
