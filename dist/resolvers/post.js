@@ -39,6 +39,15 @@ let PostResolver = class PostResolver {
         }
         return post;
     }
+    async deletePost(_id, { em }) {
+        try {
+            await em.nativeDelete(Post_1.Post, { _id });
+            return true;
+        }
+        catch (_a) {
+            return false;
+        }
+    }
 };
 __decorate([
     type_graphql_1.Query(() => [Post_1.Post]),
@@ -72,6 +81,14 @@ __decorate([
     __metadata("design:paramtypes", [Number, String, Object]),
     __metadata("design:returntype", Promise)
 ], PostResolver.prototype, "updatePost", null);
+__decorate([
+    type_graphql_1.Mutation(() => Boolean),
+    __param(0, type_graphql_1.Arg("_id")),
+    __param(1, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", Promise)
+], PostResolver.prototype, "deletePost", null);
 PostResolver = __decorate([
     type_graphql_1.Resolver()
 ], PostResolver);
