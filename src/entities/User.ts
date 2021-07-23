@@ -4,7 +4,7 @@ import { ObjectType, Field } from 'type-graphql';
 
 @ObjectType()
 @Entity()
-export class Post {
+export class User {
   @Field()
   @PrimaryKey()
   _id!: number;
@@ -17,7 +17,10 @@ export class Post {
   @Property({ type: 'date', onUpdate: () => new Date() })
   updatedAt = new Date();
 
-  @Field() // field 부분을 빼면 graphql에서 속성이 안보이도록 hide할 수 있다.
+  @Field()
+  @Property({ type: 'text', unique: true })
+  username!: string;
+
   @Property({ type: 'text' })
-  title!: string;
+  password!: string;
 }
