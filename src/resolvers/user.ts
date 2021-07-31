@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-const { Resolver, Mutation, Arg, InputType, Field, Ctx, ObjectType } = require('type-graphql');
+const { Resolver, Mutation, Arg, InputType, Field, Ctx, ObjectType, Query } = require('type-graphql');
 import { MyContext } from 'src/types';
 import { User } from '../entities/User';
 import argon2 from 'argon2';
@@ -30,6 +30,17 @@ class UserResponse {
 
 @Resolver()
 export class UserResolver {
+    @Query(() => User, { nullable: true })
+    async me(@Ctx() { req, em }: MyContext) {
+        // you are not logged in
+        if (!req.session.userId) {
+            return null;
+        }
+
+        const user = await em.findOne(User, { _id: req.session.userId });
+        return user;
+    }
+
     @Mutation(() => UserResponse)
     async register(
         @Arg("options") options: UsernamePasswordInput,
