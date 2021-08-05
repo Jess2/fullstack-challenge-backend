@@ -1,6 +1,1 @@
-# Fullstack Challenge
-
-### Stack
-- React
-- GraphQL
-- TypeScript
+# Fullstack Challenge Backend
